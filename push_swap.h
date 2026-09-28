@@ -50,16 +50,16 @@ typedef enum mode_e
 
 cfg_t parse_arguments(int argc, char **argv);
 stack_t bubble_sort(cfg_t cfg);
-void sa(stack_t *stack, bench_t *bench);
-void sb(stack_t *stack, bench_t *bench);
-void ss(stack_t *stack, bench_t *bench);
-void pa(stack_t *stack, bench_t *bench);
-void pb(stack_t *stack, bench_t *bench);
-void ra(stack_t *stack, bench_t *bench);
-void rb(stack_t *stack, bench_t *bench);
-void rr(stack_t *stack, bench_t *bench);
-void rra(stack_t *stack, bench_t *bench);
-void rrb(stack_t *stack, bench_t *bench);
-void rrr(stack_t *stack, bench_t *bench);
+void sa(stack_t *a, bench_t *bench);
+void sb(stack_t *b, bench_t *bench);
+void ss(stack_t *a, stack_t *b, bench_t *bench);
+void pa(stack_t *a, stack_t *b, bench_t *bench);
+void pb(stack_t *a, stack_t *b, bench_t *bench);
+void ra(stack_t *a, bench_t *bench);
+void rb(stack_t *b, bench_t *bench);
+void rr(stack_t *a, stack_t *b, bench_t *bench);
+void rra(stack_t *a, bench_t *bench);
+void rrb(stack_t *b, bench_t *bench);
+void rrr(stack_t *a, stack_t *b, bench_t *bench);
 
 #endif
