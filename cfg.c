@@ -6,7 +6,7 @@
 /*   By: vbertych <vbertych@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 04:46:56 by vbertych          #+#    #+#             */
-/*   Updated: 2026/09/28 17:43:09 by vbertych         ###   ########.fr       */
+/*   Updated: 2026/09/28 17:53:55 by vbertych         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ cfg_t parse_arguments(int argc, char **argv)
 
     while (i < argc)
     {
-        }
+    }
     return c;
 }
 
@@ -42,7 +42,7 @@ static int check_arg(const char *s)
 {
     if (strcmp(s, "--simple"))
         return SIMPLE;
-    else if (strcmp, "--medium")
+    else if (strcmp(s, "--medium"))
         return MEDIUM;
     else if (strcmp, "--complex")
         return COMPLEX;
