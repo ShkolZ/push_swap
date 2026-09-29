@@ -48,18 +48,38 @@ typedef enum mode_e
     ADAPTIVE
 } Mode;
 
+/*              HELPERS                */
 cfg_t parse_arguments(int argc, char **argv);
-stack_t bubble_sort(cfg_t cfg);
+// Exits with error message
+void exit_with_error(const char *err);
+// Computes disorder
+float compute_disorder(stack_t stack);
+
+/*              OPERATIONS             */
+// Swap a
 void sa(stack_t *a, bench_t *bench);
+// Swap b
 void sb(stack_t *b, bench_t *bench);
+// Swap a and b
 void ss(stack_t *a, stack_t *b, bench_t *bench);
+// Push from b to a
 void pa(stack_t *a, stack_t *b, bench_t *bench);
+// Push from a to b
 void pb(stack_t *a, stack_t *b, bench_t *bench);
+// Rotate a
 void ra(stack_t *a, bench_t *bench);
+// Rotate b
 void rb(stack_t *b, bench_t *bench);
+// Rotate both
 void rr(stack_t *a, stack_t *b, bench_t *bench);
+// Reverse rotate a
 void rra(stack_t *a, bench_t *bench);
+// Reverse rotate b
 void rrb(stack_t *b, bench_t *bench);
+// Reverse rotate both
 void rrr(stack_t *a, stack_t *b, bench_t *bench);
+
+/*              ALGORITHMS              */
+stack_t bubble_sort(cfg_t cfg);
 
 #endif
