@@ -3,67 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbertych <vbertych@student.42prague.com    +#+  +:+       +#+        */
+/*   By: nvoronts <nvoronts@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 20:46:42 by vbertych          #+#    #+#             */
-/*   Updated: 2026/09/28 21:00:27 by vbertych         ###   ########.fr       */
+/*   Updated: 2026/10/22 18:23:28 by nvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void sa(stack_t *a, bench_t *bench)
+void	sa(t_stack *a, t_bench *bench)
 {
-    int tmp;
-    if (a->size < 1)
-        return;
-    tmp = a->arr[a->size - 1];
-    a->arr[a->size - 1] = a->arr[a->size - 2];
-    a->arr[a->size - 2] = tmp;
-    ft_printf("sa\n");
-    bench->total_ops += 1;
-    bench->sa += 1;
+	stack_swap(a);
+	record_op(bench, &bench->sa, "sa");
 }
-void sb(stack_t *b, bench_t *bench)
+
+void	sb(t_stack *b, t_bench *bench)
 {
-    int tmp;
-    if (b->size < 1)
-        return;
-    tmp = b->arr[b->size - 1];
-    b->arr[b->size - 1] = b->arr[b->size - 2];
-    b->arr[b->size - 2] = tmp;
-    ft_printf("sb\n");
-    bench->total_ops += 1;
-    bench->sb += 1;
+	stack_swap(b);
+	record_op(bench, &bench->sb, "sb");
 }
-void ss(stack_t *a, stack_t *b, bench_t *bench)
+
+void	ss(t_stack *a, t_stack *b, t_bench *bench)
 {
-    sa(a, bench);
-    sb(b, bench);
+	stack_swap(a);
+	stack_swap(b);
+	record_op(bench, &bench->ss, "ss");
 }
-void pa(stack_t *a, stack_t *b, bench_t *bench)
+
+void	pa(t_stack *a, t_stack *b, t_bench *bench)
 {
-    if (b->size == 0)
-        return;
-    if (a->size + 1 > b->cap)
-        return;
-    a->arr[a->size] = b->arr[b->size - 1];
-    b->size -= 1;
-    a->size += 1;
-    ft_printf("pa\n");
-    bench->total_ops += 1;
-    bench->pa += 1;
+	stack_push(a, b);
+	record_op(bench, &bench->pa, "pa");
 }
-void pb(stack_t *a, stack_t *b, bench_t *bench)
+
+void	pb(t_stack *a, t_stack *b, t_bench *bench)
 {
-    if (a->size == 0)
-        return;
-    if (b->size + 1 > b->cap)
-        return;
-    b->arr[b->size] = a->arr[a->size - 1];
-    a->size -= 1;
-    b->size += 1;
-    ft_printf("pb\n");
-    bench->total_ops += 1;
-    bench->pb += 1;
+	stack_push(b, a);
+	record_op(bench, &bench->pb, "pb");
 }

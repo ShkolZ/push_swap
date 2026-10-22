@@ -3,53 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbertych <vbertych@student.42prague.com    +#+  +:+       +#+        */
+/*   By: nvoronts <nvoronts@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/29 03:48:02 by vbertych          #+#    #+#             */
-/*   Updated: 2026/09/29 04:05:29 by vbertych         ###   ########.fr       */
+/*   Updated: 2026/10/22 18:36:08 by nvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-float compute_disorder(stack_t stack)
+double	compute_disorder(t_stack stack)
 {
-    float mistakes;
-    float total_pairs;
-    size_t i;
-    size_t j;
+	unsigned long long	mistakes;
+	size_t				i;
+	size_t				j;
+	double				total_pairs;
 
-    mistakes = 0;
-    total_pairs = 0;
-    i = 0;
-    while (i < stack.size - 1)
-    {
-        j = i + 1;
-        while (j < stack.size - 1)
-        {
-            total_pairs++;
-            if (stack.arr[i] > stack.arr[j])
-                mistakes++;
-            j++;
-        }
-        i++;
-    }
-    return mistakes / total_pairs;
+	if (stack.size < 2)
+		return (0.0);
+	mistakes = 0;
+	i = 0;
+	while (i < stack.size)
+	{
+		j = i + 1;
+		while (j < stack.size)
+		{
+			if (stack_at(&stack, i) > stack_at(&stack, j))
+				mistakes++;
+			j++;
+		}
+		i++;
+	}
+	total_pairs = (double)stack.size * (stack.size - 1) / 2;
+	return (mistakes / total_pairs);
 }
 
-void choose_strategy(cfg_t *cfg)
+void	choose_strategy(t_cfg *cfg)
 {
-    float dis;
-
-    dis = cfg->bench->disorder;
-    if (dis < 0.2)
-        cfg->mode = SIMPLE;
-    else if (dis >= 0.2 && dis < 0.5)
-        cfg->mode = MEDIUM;
-    else if (dis >= 0.5)
-        cfg->mode = COMPLEX;
+	if (cfg->bench->disorder < 0.2)
+		cfg->mode = SIMPLE;
+	else if (cfg->bench->disorder < 0.5)
+		cfg->mode = MEDIUM;
+	else
+		cfg->mode = COMPLEX;
 }
 
-void print_bench(bench_t *bench)
+static int	rank_stack(t_cfg *cfg)
 {
+	size_t	i;
+	size_t	j;
+	int		rank;
+
+	i = 0;
+	while (i < cfg->stack.size)
+	{
+		j = 0;
+		rank = 0;
+		while (j < cfg->stack.size)
+		{
+			if (i != j && cfg->stack.arr[i] == cfg->stack.arr[j])
+				return (0);
+			if (cfg->stack.arr[j] < cfg->stack.arr[i])
+				rank++;
+			j++;
+		}
+		cfg->b.arr[i] = rank;
+		i++;
+	}
+	return (1);
+}
+
+int	prepare(t_cfg *cfg)
+{
+	size_t	i;
+
+	if (!rank_stack(cfg))
+		return (0);
+	i = 0;
+	while (i < cfg->stack.size)
+	{
+		cfg->stack.arr[i] = cfg->b.arr[i];
+		i++;
+	}
+	return (1);
 }
